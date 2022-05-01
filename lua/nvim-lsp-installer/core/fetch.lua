@@ -67,11 +67,18 @@ local function fetch(url, opts)
     if platform.is_win then
         if opts.out_file then
             platform_specific = powershell.command(
-                ([[iwr -Headers @{%s} -UseBasicParsing -Uri %q -OutFile %q;]]):format(table.concat(HEADERS.iwr[1],";"), url, opts.out_file)
+                ([[iwr -Headers @{%s} -UseBasicParsing -Uri %q -OutFile %q;]]):format(
+                    table.concat(HEADERS.iwr[1], ";"),
+                    url,
+                    opts.out_file
+                )
             )
         else
             platform_specific = powershell.command(
-                ([[Write-Output (iwr -Headers @{%s} -UseBasicParsing -Uri %q).Content;]]):format(table.concat(HEADERS.iwr[1],";"), url)
+                ([[Write-Output (iwr -Headers @{%s} -UseBasicParsing -Uri %q).Content;]]):format(
+                    table.concat(HEADERS.iwr[1], ";"),
+                    url
+                )
             )
         end
     end
