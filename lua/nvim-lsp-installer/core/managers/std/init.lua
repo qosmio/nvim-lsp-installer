@@ -49,11 +49,12 @@ end
 ---@async
 ---@param url string
 ---@param out_file string
-function M.download_file(url, out_file)
+function M.download_file(url, out_file, headers)
     local ctx = installer.context()
     ctx.stdio_sink.stdout(("Downloading file %q...\n"):format(url))
     fetch(url, {
         out_file = path.concat { ctx.cwd:get(), out_file },
+        headers = headers,
     })
         :map_err(function(err)
             return ("Failed to download file %q.\n%s"):format(url, err)
